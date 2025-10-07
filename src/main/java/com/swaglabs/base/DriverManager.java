@@ -13,6 +13,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DriverManager {
     private static final Logger logger = LogManager.getLogger(DriverManager.class);
@@ -38,6 +40,19 @@ public class DriverManager {
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--start-maximized");
                 chromeOptions.addArguments("--disable-notifications");
+                chromeOptions.addArguments("--disable-infobars");
+                chromeOptions.addArguments("--disable-blink-features=AutomationControlled");
+                chromeOptions.addArguments("--disable-save-password-bubble");
+                chromeOptions.addArguments("--incognito"); // Run in incognito mode to avoid password prompts
+
+                Map<String, Object> prefs = new HashMap<>();
+                prefs.put("credentials_enable_service", false);
+                prefs.put("profile.password_manager_enabled", false);
+                prefs.put("profile.default_content_setting_values.notifications", 2);
+                chromeOptions.setExperimentalOption("prefs", prefs);
+                chromeOptions.setExperimentalOption("excludeSwitches", new String[]{"enable-automation", "enable-logging"});
+                chromeOptions.setExperimentalOption("useAutomationExtension", false);
+
                 return new ChromeDriver(chromeOptions);
 
             case "firefox":

@@ -6,4 +6,9 @@
             <class name="com.swaglabs.tests.LoginTests"/>
         </classes>
     </test>
+    <test name="Inventory Tests">
+        <classes>
+            <class name="com.swaglabs.tests.InventoryTests"/>
+        </classes>
+    </test>
 </suite>

@@ -19,4 +19,17 @@ public class LoginTests extends BaseTest {
         assertThat(isLoginSuccessful).isTrue();
         logger.info("Login test completed successfully");
     }
+
+    @Test
+    public void testLoginWithInvalidPassword() {
+        logger.info("Starting invalid password login test");
+
+        LoginPage loginPage = new LoginPage();
+        loginPage.loginAs("standard_user", "wrong_password");
+
+        String errorMessage = loginPage.getErrorMessage();
+        assertThat(errorMessage).contains("Epic sadface: Username and password do not match any user in this service");
+
+        logger.info("Invalid password test completed successfully");
+    }
 }
